@@ -6,7 +6,6 @@ const GeneralContainer = styled.div`
     width: 40vw;
     height: 90vh;
     margin: auto;
-    border: 0.5px solid gray;
 `
 const ContainerView = styled.div`
     display: flex;
@@ -31,7 +30,6 @@ const Image = styled.img`
 const Container = styled.div`
     font-family: Arial, Helvetica, sans-serif;
     padding: 40px;
-    border: 0.5px solid gray;
     width: 100%;
     margin: 20px;
 `
@@ -41,21 +39,25 @@ const Title = styled.p`
     margin-bottom: 0;
     line-height: 40px;
     text-align: justify;
+    color: #3a434a;
     
 `
 const DescOne = styled.p`
     font-size: 19px;
     margin-top: 10px;
     line-height: 30px;
+    color: #3a434a;
 `
 const DescTwo = styled.p`
     font-size: 19px;
     line-height: 30px;
     margin-top: -18px;
+    color: #3a434a;
 `
 const DescStrong = styled.strong`
     font-size: 19px;
     margin-top: 5px;
+    color: #3a434a;
 `
 const ContainerButton = styled.div`
     position: relative;
@@ -65,7 +67,7 @@ const Button = styled.button`
     width: 150px;
     height: 50px;
     cursor: pointer;
-    background-color: #66b466;
+    background-color: #4bd395;
     border-radius: 5px;
     color: white;
     flex-direction: row;
@@ -94,19 +96,20 @@ export interface params {
     descStrong: string,
     button: string,
     style?: React.CSSProperties | undefined,
-    children?: React.ReactNode,
-    onClick?: React.MouseEventHandler<HTMLAnchorElement> | undefined
+    onClickDiv?: React.MouseEventHandler<HTMLDivElement> | undefined,
+    onClickButton?: React.MouseEventHandler<HTMLButtonElement> | undefined
 }
 /**
  * 
  * @param params
  * @param params.title:string
- * @param params.titleDesc:string
- * @param params.footerDesc:string
+ * @param params.descOne:string
+ * @param params.descTwo:string
+ * @param params.descStrong:string
  * @param params.button:string
- * @param params.style:doing style to your MAINCONTAINER
- * @param params.children:Insert any element that you want inside the MAINCONTAINER
- * @param params.onClick:Event handler for the button param
+ * @param params.style:doing style to your CARD COMPONENT
+ * @param params.onClickDiv:Event handler for the Image DIV
+ * @param params.onClickButton:Event handler for the Download Button
  * 
  * @example 
  * import MainContainer from "./components"
@@ -114,14 +117,7 @@ export interface params {
 function App() {
 
     return (
-        <MainContainer
-            // title="What describes you best?"
-            // titleDesc="We'll personalise your setup experience based on this."
-            // footerDesc="Not your first time using Ghost?"
-            // button="Skip onboarding help"
-        >
-            {childrens}
-        </MainContainer>
+        <Card/>
     )
 }
 
@@ -131,9 +127,9 @@ export default App
 
 const Card = (params: params): JSX.Element => {
     return (
-        <GeneralContainer>
+        <GeneralContainer style={params.style}>
             <ContainerView>
-                <ContainerImage>
+                <ContainerImage onClick={params.onClickDiv}>
                     <Image src="https://img.icons8.com/sf-ultralight/344/gallery.png" />
                 </ContainerImage>
                 <Container>
@@ -145,7 +141,7 @@ const Card = (params: params): JSX.Element => {
                         {params.descTwo}<DescStrong> {params.descStrong}</DescStrong>
                     </DescTwo>
                     <ContainerButton>
-                        <Button>
+                        <Button onClick={params.onClickButton}>
                             <Icon src="data:image/svg+xml;base64,PHN2ZyB2ZXJzaW9uPSIxLjEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiIHZpZXdCb3g9IjAgMCAxNzIgMTcyIj48ZyBmaWxsPSJub25lIiBmaWxsLXJ1bGU9Im5vbnplcm8iIHN0cm9rZT0ibm9uZSIgc3Ryb2tlLXdpZHRoPSIxIiBzdHJva2UtbGluZWNhcD0iYnV0dCIgc3Ryb2tlLWxpbmVqb2luPSJtaXRlciIgc3Ryb2tlLW1pdGVybGltaXQ9IjEwIiBzdHJva2UtZGFzaGFycmF5PSIiIHN0cm9rZS1kYXNob2Zmc2V0PSIwIiBmb250LWZhbWlseT0ibm9uZSIgZm9udC13ZWlnaHQ9Im5vbmUiIGZvbnQtc2l6ZT0ibm9uZSIgdGV4dC1hbmNob3I9Im5vbmUiIHN0eWxlPSJtaXgtYmxlbmQtbW9kZTogbm9ybWFsIj48cGF0aCBkPSJNMCwxNzJ2LTE3MmgxNzJ2MTcyeiIgZmlsbD0ibm9uZSI+PC9wYXRoPjxnIGZpbGw9IiNmZmZmZmYiPjxwYXRoIGQ9Ik0xNDMuNzgxMjUsMTM5Ljc1di0yNi44NzVjMCwtMi4yODQzNyAtMS43NDY4NywtNC4wMzEyNSAtNC4wMzEyNSwtNC4wMzEyNWMtMi4yODQzOCwwIC00LjAzMTI1LDEuNzQ2ODggLTQuMDMxMjUsNC4wMzEyNXYyMi44NDM3NWgtOTkuNDM3NXYtMjIuODQzNzVjMCwtMi4yODQzNyAtMS43NDY4OCwtNC4wMzEyNSAtNC4wMzEyNSwtNC4wMzEyNWMtMi4yODQzOCwwIC00LjAzMTI1LDEuNzQ2ODggLTQuMDMxMjUsNC4wMzEyNXYyNi44NzVjMCwyLjI4NDM4IDEuNzQ2ODcsNC4wMzEyNSA0LjAzMTI1LDQuMDMxMjVoMTA3LjVjMi4yODQzOCwwIDQuMDMxMjUsLTEuNzQ2ODcgNC4wMzEyNSwtNC4wMzEyNXpNODYsMjguMjE4NzVjLTIuMjg0MzcsMCAtNC4wMzEyNSwxLjc0Njg3IC00LjAzMTI1LDQuMDMxMjV2NTcuNTEyNWwtMTMuMzAzMTIsLTEzLjMwMzEzYy0xLjYxMjUsLTEuNjEyNSAtNC4xNjU2MywtMS42MTI1IC01LjY0Mzc1LDBjLTEuNjEyNSwxLjYxMjUgLTEuNjEyNSw0LjE2NTYzIDAsNS42NDM3NWwyMC4xNTYyNSwyMC4xNTYyNWMwLjgwNjI1LDAuODA2MjUgMS44ODEyNSwxLjIwOTM4IDIuODIxODgsMS4yMDkzOGMwLjk0MDYyLDAgMi4wMTU2MywtMC40MDMxMyAyLjgyMTg3LC0xLjIwOTM4bDIwLjE1NjI1LC0yMC4xNTYyNWMxLjYxMjUsLTEuNjEyNSAxLjYxMjUsLTQuMTY1NjMgMCwtNS42NDM3NWMtMS42MTI1LC0xLjYxMjUgLTQuMTY1NjIsLTEuNjEyNSAtNS42NDM3NSwwbC0xMy4zMDMxMiwxMy4zMDMxM3YtNTcuNTEyNWMwLC0yLjI4NDM4IC0xLjc0Njg4LC00LjAzMTI1IC00LjAzMTI1LC00LjAzMTI1eiI+PC9wYXRoPjwvZz48L2c+PC9zdmc+" />
                             <DescButton>{params.button}</DescButton>
                         </Button>
